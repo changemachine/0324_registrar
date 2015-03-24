@@ -66,12 +66,39 @@
            $GLOBALS['DB']->exec("DELETE FROM courses *;");
        }
 
+       // FIND UPDATE & DELETE BY ITEM
+       static function find($search_id) {
+           $found_course = null;
+           $courses = Course::getAll();
+           foreach($courses as $course) {
+               $course_id = $course->getId();
+               if ($course_id == $search_id) {
+                 $found_course = $course;
+               }
+           }
+           return $found_course;
+       }
+       function deleteCourse() {
+           $GLOBALS['DB']->exec("DELETE FROM courses WHERE course_id = {$this->getId()};");
+           $GLOBALS['DB']->exec("DELETE FROM students_courses WHERE category_id = {$this->getId()};");
+       }
+
+       function updateName($new_name) {
+           $GLOBALS['DB']->exec("UPDATE courses SET first = '{$new_name}' WHERE id = {$this->getId()};");
+           $this->setName($new_name);
+       }
+
+       function updateNumber($new_number)
+       {
+           $GLOBALS['DB']->exec("UPDATE courses SET course_number = '{$new_number}' WHERE id = {$this->getId()};");
+           $this->setNumber($new_number);
+       }
 
 
-        // FIND & DELETE BY CATEGORY
 
 
-        // UPDATE & DELETE BY ITEM
+
+
 
 
 

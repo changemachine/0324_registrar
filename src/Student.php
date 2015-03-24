@@ -65,12 +65,47 @@
            $GLOBALS['DB']->exec("DELETE FROM students *;");
        }
 
+       // FIND, DELETE & UPDATE
+       static function find($search_id)
+      {
+          $found_student = null;
+          $students = Student::getAll();
+          foreach($students as $student) {
+              $student_id = $student->getId();
+              if ($student_id == $search_id) {
+                $found_student = $student;
+              }
+          }
+          return $found_student;
+      }
+
+      function deleteStudent(){
+
+          //delete any tasks from the tasks table where their id matches the current one.
+          $GLOBALS['DB']->exec("DELETE FROM students WHERE student_id = {$this->getId()};");
+
+          //also delete any rows from the categories_tasks table where the task id is the current one.
+          $GLOBALS['DB']->exec("DELETE FROM students_courses WHERE student_id = {$this->getId()};");
 
 
-        // FIND & DELETE BY CATEGORY
+      }
+
+      function updateFirst($new_first)
+      {
+          $GLOBALS['DB']->exec("UPDATE students SET first = '{$new_first}' WHERE id = {$this->getId()};");
+          $this->setFirst($new_first);
+      }
+
+      function updateLast($new_last)
+      {
+          $GLOBALS['DB']->exec("UPDATE students SET last = '{$new_last}' WHERE id = {$this->getId()};");
+          $this->setLast($new_last);
+      }
 
 
-        // UPDATE & DELETE BY ITEM
+
+
+
 
 
 
