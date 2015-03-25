@@ -1,23 +1,28 @@
-<?php
+    <?php
 
-    require_once__DIR__.'/../vendor/autoload.php';
-    require_once__DIR__.'/../src/Course.php';
-    require_once__DIR__.'/../src/Student.php';
+    require_once __DIR__.'/../vendor/autoload.php';
+    // require_once __DIR__.'/../src/Course.php';
+    // require_once __DIR__.'/../src/Student.php';
 
     $app = new Silex\Application();
-    $app['debug'] = true;
+    // $app['debug'] = true;
+    // $DB = new PDO('pgsql:host=localhost;dbname=university_registrar');
 
-    $DB = new PDO('pgsql:host=localhost;dbname=university_registrar');
+    // $app->register(new Silex\Provider\TwigServiceProvider(), array(
+    //     'twig.path' => __DIR__.'/../views'
+    // ));
 
-    $app->register(new Silex\Provider\TwigServiceProvider(), array('twig.path', => __DIR__.'/../views'
-    ));
+    // use Symfony\Component\HttpFoundation\Request;
+    // Request::enableHttpMethodParameterOverride();
 
-    use Symfony\Component\HttpFoundation\Request;
-    Request::enableHttpMethodParameterOverride();
-
-    
-
-
+    $app->get("/", function() {
+        // return $app['twig']->render('index.html.twig');
+        return 'hi';
+    });
 
 
-?>
+    return $app;
+
+
+
+    ?>
